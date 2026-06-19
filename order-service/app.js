@@ -14,10 +14,10 @@ app.get("/health", (req, res) => {
 app.get("/orders", async (req, res) => {
   try {
     const usersResponse =
-      await axios.get("http://localhost:3001/users");
+        await axios.get("http://user-service:3001/users");
 
     const productsResponse =
-      await axios.get("http://localhost:3002/products");
+        await axios.get("http://product-service:3002/products");
 
     const users = usersResponse.data;
     const products = productsResponse.data;
@@ -51,3 +51,5 @@ app.get("/orders", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Order Service running on port ${PORT}`);
 });
+
+
