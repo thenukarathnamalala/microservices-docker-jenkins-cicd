@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Verify Docker') {
+        stage('Run Tests') {
             steps {
-                sh 'docker version'
+                sh 'cd user-service && npm test'
+                sh 'cd product-service && npm test'
+                sh 'cd order-service && npm test'
             }
         }
     }
