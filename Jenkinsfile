@@ -2,11 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Tests') {
+        stage('Build Docker Images') {
             steps {
-                sh 'cd user-service && npm test'
-                sh 'cd product-service && npm test'
-                sh 'cd order-service && npm test'
+                sh 'docker compose build'
+            }
+        }
+
+        stage('Run Tests Inside Containers') {
+            steps {
+                sh 'docker compose run --rm user-service npm test'
+                sh 'docker compose run --rm product-service npm test'
+                sh 'docker compose run --rm order-service npm test'
             }
         }
     }
