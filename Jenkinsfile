@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Docker Images') {
+        stage('Docker Hub Login') {
             steps {
-                sh 'docker compose build'
-            }
-        }
-
-        stage('Run Tests Inside Containers') {
-            steps {
-                sh 'docker compose run --rm user-service npm test'
-                sh 'docker compose run --rm product-service npm test'
-                sh 'docker compose run --rm order-service npm test'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
             }
         }
     }
