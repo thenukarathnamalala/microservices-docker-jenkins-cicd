@@ -2,28 +2,9 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
+        stage('Verify Docker') {
             steps {
-                echo 'Checking out source code...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building application...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
+                sh 'docker version'
             }
         }
     }
