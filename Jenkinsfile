@@ -1,3 +1,5 @@
+//pipeline for testing SSH connection to EC2 instance
+
 pipeline {
     agent any
 
